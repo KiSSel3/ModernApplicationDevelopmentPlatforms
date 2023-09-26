@@ -1,21 +1,44 @@
-﻿@{
+﻿@using Web_153501_Kiselev.Entity;
+
+@{
     ViewBag.Title = "Index";
+
+    var list = new List<ListDemo>()
+    {
+        new ListDemo(){ Id = 1, Name = "Name_1" },
+        new ListDemo(){ Id = 2, Name = "Name_2" },
+        new ListDemo(){ Id = 3, Name = "Name_3" },
+        new ListDemo(){ Id = 4, Name = "Name_4" },
+        new ListDemo(){ Id = 5, Name = "Name_5" },
+    };
+
+    var selectedList = new SelectList(list, "Id", "Name");
 }
 
 <div class="container">
-    <h1>Лабораторная работа 1</h1>
+    <h1>@ViewData["Header"]</h1>
 
     <div class="list">
         <h3>Список</h3>
 
         <ol type="A">
-            <li>элемент 1 списка</li>
-            <li>элемент 2 списка</li>
+            @for(int i = 0; i < 5; ++i)
+            {
+                <li>элемент @(i+1) списка</li>
+            }
         </ol>
     </div>
+
     <hr />
+
     <form method="post">
         <h3>Форма</h3>
+
+        <div class="row mb-3">
+            <div class="col-sm-10 offset-sm-2">
+                <select class="form-select"  asp-items="selectedList" name="demoSelect"></select>
+            </div>
+        </div>
 
         <div class="row mb-3">
             <div class="col-sm-10 offset-sm-2">
@@ -72,4 +95,4 @@
 
         <button type="submit" class="btn btn-primary">Отправить</button>
     </form>
-</d>
+</div>

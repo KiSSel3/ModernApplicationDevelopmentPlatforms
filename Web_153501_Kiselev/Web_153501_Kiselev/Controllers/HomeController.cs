@@ -6,6 +6,7 @@ namespace Web_153501_Kiselev.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["Header"] = "Лабораторная работа №2";
             return View();
         }
     }
