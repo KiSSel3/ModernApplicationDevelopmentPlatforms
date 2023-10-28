@@ -10,7 +10,7 @@ namespace Web_153501_Kiselev.Services.VehicleService
         private IConfiguration _config;
 
         private ListModel<Vehicle> _vehicle;
-        private ListModel<VehicleType> _vehicleTypes;
+        private List<VehicleType> _vehicleTypes;
 
         public MemoryVehicleService([FromServices] IConfiguration config, IVehicleTypeService vehicleTypeService)
         {
@@ -27,16 +27,16 @@ namespace Web_153501_Kiselev.Services.VehicleService
             List<Vehicle> list = new List<Vehicle>()
             {
                 new Vehicle() { Id = Guid.NewGuid(), Model = "E 200 4M Sport", Description = "Хороший автомобиль",
-                    Price = 90000, ImagePath = "images/E.jpg", Type = _vehicleTypes.Items.Find(item => item.NormalizedName.Equals("sedan")) },
+                    Price = 90000, ImagePath = "images/E.jpg", Type = _vehicleTypes.Find(item => item.NormalizedName.Equals("sedan")) },
 
                 new Vehicle() { Id = Guid.NewGuid(), Model = "G 63 AMG", Description = "Хороший автомобиль",
-                    Price = 302000, ImagePath = "images/G63.jpg", Type = _vehicleTypes.Items.Find(item => item.NormalizedName.Equals("suv")) },
+                    Price = 302000, ImagePath = "images/G63.jpg", Type = _vehicleTypes.Find(item => item.NormalizedName.Equals("suv")) },
 
                 new Vehicle() { Id = Guid.NewGuid(), Model = "SL", Description = "Хороший автомобиль",
-                    Price = 240000, ImagePath = "images/SL.jpg", Type = _vehicleTypes.Items.Find(item => item.NormalizedName.Equals("convertible")) },
+                    Price = 240000, ImagePath = "images/SL.jpg", Type = _vehicleTypes.Find(item => item.NormalizedName.Equals("convertible")) },
 
                 new Vehicle() { Id = Guid.NewGuid(), Model = "AMG GT", Description = "Хороший автомобиль",
-                    Price = 210000, ImagePath = "images/AMG_GT.jpeg", Type = _vehicleTypes.Items.Find(item => item.NormalizedName.Equals("sedan")) },
+                    Price = 210000, ImagePath = "images/AMG_GT.jpeg", Type = _vehicleTypes.Find(item => item.NormalizedName.Equals("sedan")) },
             };
 
             _vehicle = new ListModel<Vehicle>() { Items = list };

@@ -5,7 +5,7 @@ namespace Web_153501_Kiselev.Services.VehicleTypeService
 {
     public class MemoryVehicleTypeService : IVehicleTypeService
     {
-        public Task<BaseResponse<ListModel<VehicleType>>> GetVehicleTypeListAsync()
+        public Task<BaseResponse<List<VehicleType>>> GetVehicleTypeListAsync()
         {
             List<VehicleType> vehicleTypes = new List<VehicleType>()
             {
@@ -14,7 +14,7 @@ namespace Web_153501_Kiselev.Services.VehicleTypeService
                 new VehicleType() {Id=Guid.NewGuid(), Name="Внедорожник", NormalizedName="suv"},
             };
 
-            BaseResponse<ListModel<VehicleType>> result = new BaseResponse<ListModel<VehicleType>>(true, new ListModel<VehicleType>() { Items = vehicleTypes});
+            BaseResponse<List<VehicleType>> result = new BaseResponse<List<VehicleType>>(true, vehicleTypes);
 
             return Task.FromResult(result);
         }

@@ -13,8 +13,8 @@ namespace Web_153501_Kiselev.Domain.Entities
         public string Description { get; set; }
         public VehicleType Type { get; set; }
         public decimal Price { get; set; }
-        public string ImagePath { get; set; }
-        /*public string MimeType { get; set; }*/
+        public string? ImagePath { get; set; }
+        public string? MimeType { get; set; }
 
     }
 }

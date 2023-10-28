@@ -16,7 +16,7 @@ namespace Web_153501_Kiselev.Controllers
         public async Task<IActionResult> Index(string? type, int pageNo = 1)
         {
             BaseResponse<ListModel<Vehicle>> responseVehicle = await _vehicleService.GetVehicleListAsync(type, pageNo);
-            BaseResponse<ListModel<VehicleType>> responseType = await _vehicleTypeService.GetVehicleTypeListAsync();
+            BaseResponse<List<VehicleType>> responseType = await _vehicleTypeService.GetVehicleTypeListAsync();
 
             if (!responseType.Success)
                 return NotFound(responseType.Message);
@@ -24,7 +24,7 @@ namespace Web_153501_Kiselev.Controllers
             if (!responseVehicle.Success)
                 return NotFound(responseVehicle.Message);
 
-            ViewData["typeList"] = responseType.Data.Items;
+            ViewData["typeList"] = responseType.Data;
             ViewData["currentType"] = type;
 
             return View(responseVehicle.Data);
