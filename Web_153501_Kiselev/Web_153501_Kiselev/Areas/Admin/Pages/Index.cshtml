@@ -1,0 +1,55 @@
+﻿@page
+@model Web_153501_Kiselev.Areas.Admin.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle[0].ImagePath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Vehicle)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <img src="@item.ImagePath" alt="Image" height="100" width="100" />
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i>Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id"><i class="fa-solid fa-info"></i>Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id"><i class="fa-solid fa-trash"></i>Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

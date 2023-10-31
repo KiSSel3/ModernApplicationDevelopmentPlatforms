@@ -8,6 +8,8 @@ namespace Web_153501_Kiselev.API
     {
         public static void AddServices(this WebApplicationBuilder builder)
         {
+            builder.Services.AddHttpContextAccessor();
+
             builder.Services.AddScoped<IVehicleTypeService, VehicleTypeService>();
             builder.Services.AddScoped<IVehicleService, VehicleService>();
         }

@@ -1,4 +1,5 @@
-﻿using Web_153501_Kiselev.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using Web_153501_Kiselev.Entity;
 using Web_153501_Kiselev.Services.VehicleService;
 using Web_153501_Kiselev.Services.VehicleTypeService;
 

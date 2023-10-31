@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Web_153501_Kiselev.API.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using Web_153501_Kiselev.API.Services;
 using Web_153501_Kiselev.Domain.Entities;
 using Web_153501_Kiselev.Domain.Models;
@@ -17,8 +10,21 @@ namespace Web_153501_Kiselev.API.Controllers
     public class VehiclesController : ControllerBase
     {
         private readonly IVehicleService _vehicleService;
+        private readonly IWebHostEnvironment _env;
+        private readonly IConfiguration _configuration;
 
-        public VehiclesController(IVehicleService vehicleService) => (_vehicleService) = (vehicleService);
+        private readonly string _imagesPath;
+        private readonly string _appUri;
+
+        public VehiclesController(IVehicleService vehicleService, IWebHostEnvironment env, IConfiguration configuration)
+        {
+            _vehicleService = vehicleService;
+            _env = env;
+            _configuration = configuration;
+
+            _imagesPath = Path.Combine(_env.WebRootPath, "images");
+            _appUri = _configuration.GetSection("appUri").Value;
+        }
 
         // GET: api/Vehicles
         [HttpGet("")]
@@ -47,11 +53,11 @@ namespace Web_153501_Kiselev.API.Controllers
             {
                 return Ok(response);
             }
-            
+
             return NotFound();
         }
 
-/*        // PUT: api/Vehicles/5
+        // PUT: api/Vehicles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVehicle(Guid id, Vehicle vehicle)
@@ -61,26 +67,10 @@ namespace Web_153501_Kiselev.API.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(vehicle).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!VehicleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _vehicleService.UpdateVehicleAsync(id, vehicle);
 
             return NoContent();
-        }*/
+        }
 
         // POST: api/Vehicles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -102,6 +92,17 @@ namespace Web_153501_Kiselev.API.Controllers
         public async Task DeleteVehicle(Guid id)
         {
             await _vehicleService.DeleteVehicle(id);
+        }
+
+        [HttpPost("{id}")]
+        public async Task<ActionResult<BaseResponse<string>>> PostImage(Guid id, IFormFile formFile)
+        {
+            var response = await _vehicleService.SaveImageAsync(id, formFile);
+            if (response.Success)
+            {
+                return Ok(response);
+            }
+            return NotFound(response);
         }
     }
 }

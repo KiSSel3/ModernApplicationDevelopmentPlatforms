@@ -1,5 +1,4 @@
-﻿using System.Data.SqlTypes;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 using Web_153501_Kiselev.Domain.Entities;
 using Web_153501_Kiselev.Domain.Models;
@@ -36,7 +35,14 @@ namespace Web_153501_Kiselev.Services.VehicleService
             {
                 try
                 {
-                    return await response.Content.ReadFromJsonAsync<BaseResponse<Vehicle>>(_serializerOptions);
+                    var baseResponse = await response.Content.ReadFromJsonAsync<BaseResponse<Vehicle>>(_serializerOptions);
+
+                    if (formFile != null)
+                    {
+                        await SaveImageAsync(baseResponse.Data.Id, formFile);
+                    }
+
+                    return baseResponse;
                 }
                 catch (JsonException ex)
                 {
@@ -118,14 +124,38 @@ namespace Web_153501_Kiselev.Services.VehicleService
                 }
             }
 
-            _logger.LogError($"-----> Данные не получены от сервера. Error:{ response.StatusCode}");
+            _logger.LogError($"-----> Данные не получены от сервера. Error:{response.StatusCode}");
 
             return new BaseResponse<ListModel<Vehicle>>(false, $"Данные не получены от сервера. Error:{response.StatusCode}");
         }
 
-        public Task UpdateProductAsync(Guid id, Vehicle vehicle, IFormFile? formFile)
+        public async Task UpdateProductAsync(Guid id, Vehicle vehicle, IFormFile? formFile)
         {
-            throw new NotImplementedException();
+            if (formFile != null)
+            {
+                await SaveImageAsync(vehicle.Id, formFile);
+            }
+
+            var uri = new Uri($"{_httpClient.BaseAddress.AbsoluteUri}Vehicles/{id}");
+
+            await _httpClient.PutAsJsonAsync(uri, vehicle, _serializerOptions);
+        }
+
+        private async Task SaveImageAsync(Guid id, IFormFile image)
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri($"{_httpClient.BaseAddress.AbsoluteUri}Vehicles/{id}")
+            };
+
+            var content = new MultipartFormDataContent();
+            var streamContent = new StreamContent(image.OpenReadStream());
+
+            content.Add(streamContent, "formFile", image.FileName);
+            request.Content = content;
+
+            await _httpClient.SendAsync(request);
         }
     }
 }

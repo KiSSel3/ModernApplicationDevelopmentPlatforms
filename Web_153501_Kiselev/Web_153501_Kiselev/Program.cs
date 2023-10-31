@@ -8,7 +8,7 @@ internal class Program
 
         // Add services to the container.
         builder.AddServices();
-
+        builder.Services.AddRazorPages();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -25,6 +25,8 @@ internal class Program
         app.UseRouting();
 
         app.UseAuthorization();
+
+        app.MapRazorPages();
 
         app.MapControllerRoute(
             name: "default",

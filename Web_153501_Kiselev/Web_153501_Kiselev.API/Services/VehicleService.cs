@@ -8,14 +8,21 @@ namespace Web_153501_Kiselev.API.Services
     public class VehicleService : IVehicleService
     {
         private readonly AppDbContext _db;
+        private readonly IWebHostEnvironment _env;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly int _maxPageSize = 20;
 
-        public VehicleService(AppDbContext db) => (_db) = (db);
+        public VehicleService(AppDbContext db, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor) => (_db, _env, _httpContextAccessor) = (db, env, httpContextAccessor);
 
         public async Task<BaseResponse<Vehicle>> CreateVehicleAsync(Vehicle vehicle)
         {
             try
             {
+                if(vehicle != null && vehicle.Type != null)
+                {
+                    vehicle.Type = await _db.Types.FirstOrDefaultAsync(t => t.Id.Equals(vehicle.Type.Id));
+                }
+
                 await _db.Vehicles.AddAsync(vehicle);
                 await _db.SaveChangesAsync();
 
@@ -48,7 +55,7 @@ namespace Web_153501_Kiselev.API.Services
                     .Include(v => v.Type)
                     .FirstOrDefaultAsync(item => item.Id.Equals(id));
 
-                if(searchVehicle != null)
+                if (searchVehicle != null)
                 {
                     return new BaseResponse<Vehicle>(true, searchVehicle);
                 }
@@ -103,14 +110,49 @@ namespace Web_153501_Kiselev.API.Services
             }
         }
 
-        public Task<BaseResponse<string>> SaveImageAsync(Guid id, IFormFile formFile)
+        public async Task<BaseResponse<string>> SaveImageAsync(Guid id, IFormFile formFile)
         {
-            throw new NotImplementedException();
+            var vehicle = await _db.Vehicles.FindAsync(id);
+            if (vehicle == null)
+            {
+                return new BaseResponse<string>(false, "No item found");
+            }
+
+            var host = "https://" + _httpContextAccessor.HttpContext.Request.Host;
+
+            var imageFolder = Path.Combine(_env.WebRootPath, "images");
+
+            if (formFile != null)
+            {
+                if (!String.IsNullOrEmpty(vehicle.ImagePath))
+                {
+                    var prevImage = Path.Combine(imageFolder, Path.GetFileName(vehicle.ImagePath));
+                    if (File.Exists(prevImage))
+                    {
+                        File.Delete(prevImage);
+                    }
+                }
+
+                var ext = Path.GetExtension(formFile.FileName);
+                var fName = Path.ChangeExtension(Path.GetRandomFileName(), ext);
+                var fPath = Path.Combine(imageFolder, fName);
+
+                using (var stream = new FileStream(fPath, FileMode.Create))
+                {
+                    await formFile.CopyToAsync(stream);
+                }
+
+                vehicle.ImagePath = $"{host}/images/{fName}";
+                await _db.SaveChangesAsync();
+            }
+
+            return new BaseResponse<string>(true, data: vehicle.ImagePath);
         }
 
-        public Task UpdateProductAsync(Guid id, Vehicle vehicle)
+        public async Task UpdateVehicleAsync(Guid id, Vehicle vehicle)
         {
-            throw new NotImplementedException();
+            _db.Vehicles.Update(vehicle);
+            await _db.SaveChangesAsync();
         }
     }
 }
