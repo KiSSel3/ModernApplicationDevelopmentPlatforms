@@ -1,5 +1,6 @@
 ﻿@using Web_153501_Kiselev.Domain.Entities;
 @using Web_153501_Kiselev.Domain.Models;
+
 @model ListModel<Vehicle>
 
 @{
@@ -25,7 +26,7 @@
                 @foreach (var item in vehicleTypes)
                 {
                     <li>
-                        <a class="dropdown-item" asp-controller="Vehicle" asp-action="Index" asp-route-type="@item.NormalizedName"> @item.Name </a>
+                        <a class="dropdown-item" asp-controller="Vehicle" asp-action="Index" asp-route-type="@item.NormalizedName" data-current-type=@item.Name> @item.Name </a>
                     </li>
                 }
             </ul>
@@ -35,43 +36,14 @@
 
 <h1>Наш автопарк</h1>
 
-<div class="row row-cols-1 row-cols-md-3">
-    @foreach (var item in Model.Items)
+@{
+    await Html.RenderPartialAsync("_VehicleListPartial", new
     {
-        <div class="col">
-            <div class="card d-flex flex-fill mb-4">
-                <img src="@item.ImagePath" class="card-img-top" alt="Error">
-                <div class="card-body">
-                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Model)</h5>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                    <a class="btn btn-primary mx-auto" asp-controller="Cart" asp-action="Add" asp-route-vehicleId="@item.Id" asp-route-returnUrl="@returnUrl">Добавить в корзину</a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">@Html.DisplayFor(modelItem => item.Price)$</small>
-                </div>
-            </div>
-        </div>
-    }
-</div>
-
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item">
-            <a class="page-link" aria-label="Previous" asp-controller="Vehicle" asp-action="Index" asp-route-type="@ViewData["currentType"]" asp-route-pageNo="@prevPage">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-
-        @for(int i = 0; i < Model.TotalPages; ++i)
-        {
-            <li class="page-item @(Model.CurrentPage == i+1 ? "active":"")"><a class="page-link" asp-controller="Vehicle" asp-action="Index" asp-route-type="@ViewData["currentType"]" asp-route-pageNo="@(i+1)">@(i + 1)</a></li>
-        }
-
-        <li class="page-item">
-            <a class="page-link" aria-label="Next" asp-controller="Vehicle" asp-action="Index" asp-route-type="@ViewData["currentType"]" asp-route-pageNo="@nextPage">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+        Items = Model.Items,
+        CurrentType = @ViewData["currentType"],
+        ReturnUrl = returnUrl,
+        CurrentPage = Model.CurrentPage,
+        TotalPages = Model.TotalPages
+    });
+}
 

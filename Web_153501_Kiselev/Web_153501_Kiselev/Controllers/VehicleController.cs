@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Web_153501_Kiselev.Domain.Entities;
 using Web_153501_Kiselev.Domain.Models;
+using Web_153501_Kiselev.Extensions;
 using Web_153501_Kiselev.Services.VehicleService;
 using Web_153501_Kiselev.Services.VehicleTypeService;
 
@@ -26,6 +27,19 @@ namespace Web_153501_Kiselev.Controllers
 
             ViewData["typeList"] = responseType.Data;
             ViewData["currentType"] = type;
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_VehicleListPartial", new
+                {
+                    Items = responseVehicle.Data.Items,
+                    CurrentType = type,
+                    ReturnUrl = Request.Path + Request.QueryString.ToUriComponent(),
+                    CurrentPage = responseVehicle.Data.CurrentPage,
+                    TotalPages = responseVehicle.Data.TotalPages
+                });
+            }
+
 
             return View(responseVehicle.Data);
         }

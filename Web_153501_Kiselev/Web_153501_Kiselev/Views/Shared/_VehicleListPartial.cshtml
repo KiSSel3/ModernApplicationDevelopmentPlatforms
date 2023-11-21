@@ -1,0 +1,26 @@
+﻿﻿<div id="vehicles">
+    <div class="row row-cols-1 row-cols-md-3">
+        @foreach (var item in Model.Items)
+        {
+            <div class="col">
+                <div class="card d-flex flex-fill mb-4">
+                    <img src="@item.ImagePath" class="card-img-top" alt="Error">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Model</h5>
+                        <p class="card-text">@item.Description</p>
+                        <a class="btn btn-primary mx-auto" asp-controller="Cart" asp-action="Add" asp-route-vehicleId="@item.Id" asp-route-returnUrl="@Model.ReturnUrl">Добавить в корзину</a>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">@item.Price $</small>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <Pager current-page="@Model.CurrentPage" total-pages="@Model.TotalPages" type="@Model.CurrentType"></Pager>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/vehicle_list_partial.js"></script>
