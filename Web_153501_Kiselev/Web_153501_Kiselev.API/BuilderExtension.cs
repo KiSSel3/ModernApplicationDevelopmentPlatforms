@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Web_153501_Kiselev.API.Data;
 using Web_153501_Kiselev.API.Services;
 
@@ -9,6 +10,18 @@ namespace Web_153501_Kiselev.API
         public static void AddServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddHttpContextAccessor();
+
+            builder.Services
+                        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                        .AddJwtBearer(opt =>
+                        {
+                            opt.Authority = builder
+                            .Configuration
+                            .GetSection("isUri").Value;
+                            opt.TokenValidationParameters.ValidateAudience = false;
+                            opt.TokenValidationParameters.ValidTypes =
+                            new[] { "at+jwt" };
+                        });
 
             builder.Services.AddScoped<IVehicleTypeService, VehicleTypeService>();
             builder.Services.AddScoped<IVehicleService, VehicleService>();

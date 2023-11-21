@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev", "Web_1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev.Domain", "Web_153501_Kiselev.Domain\Web_153501_Kiselev.Domain.csproj", "{3F3F2C53-490B-4A2E-A1DA-DE0E8C6264D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_153501_Kiselev.API", "Web_153501_Kiselev.API\Web_153501_Kiselev.API.csproj", "{6C94D352-790B-439F-9F24-11A0BAD79C04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev.API", "Web_153501_Kiselev.API\Web_153501_Kiselev.API.csproj", "{6C94D352-790B-439F-9F24-11A0BAD79C04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_153501_Kiselev.IdentityServer", "Web_153501_Kiselev.IdentityServer\Web_153501_Kiselev.IdentityServer.csproj", "{EE525508-72EC-4399-8C3F-83DADB2DD296}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{6C94D352-790B-439F-9F24-11A0BAD79C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C94D352-790B-439F-9F24-11A0BAD79C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C94D352-790B-439F-9F24-11A0BAD79C04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE525508-72EC-4399-8C3F-83DADB2DD296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE525508-72EC-4399-8C3F-83DADB2DD296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE525508-72EC-4399-8C3F-83DADB2DD296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE525508-72EC-4399-8C3F-83DADB2DD296}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,6 +8,8 @@ internal class Program
 
         // Add services to the container.
         builder.AddServices();
+        builder.AddAuthentication();
+
         builder.Services.AddRazorPages();
         var app = builder.Build();
 
@@ -26,7 +28,7 @@ internal class Program
 
         app.UseAuthorization();
 
-        app.MapRazorPages();
+        app.MapRazorPages().RequireAuthorization();
 
         app.MapControllerRoute(
             name: "default",

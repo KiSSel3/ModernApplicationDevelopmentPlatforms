@@ -48,11 +48,18 @@ namespace Web_153501_Kiselev.API.Services
 
         public async Task<BaseResponse<Vehicle>> GetVehicleByIdAsync(Guid id)
         {
+            var query = _db.Vehicles.AsQueryable();
+
+            if(true)
+            {
+                query.Include(v => v.Type);
+            }
+
             try
             {
-                var searchVehicle = await _db.Vehicles
+                var searchVehicle = await query
                     .AsNoTracking()
-                    .Include(v => v.Type)
+                    
                     .FirstOrDefaultAsync(item => item.Id.Equals(id));
 
                 if (searchVehicle != null)

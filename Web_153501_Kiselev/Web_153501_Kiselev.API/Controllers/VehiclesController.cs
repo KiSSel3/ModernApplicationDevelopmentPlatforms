@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Web_153501_Kiselev.API.Services;
 using Web_153501_Kiselev.Domain.Entities;
 using Web_153501_Kiselev.Domain.Models;
@@ -59,6 +60,7 @@ namespace Web_153501_Kiselev.API.Controllers
 
         // PUT: api/Vehicles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutVehicle(Guid id, Vehicle vehicle)
         {
@@ -74,6 +76,7 @@ namespace Web_153501_Kiselev.API.Controllers
 
         // POST: api/Vehicles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<BaseResponse<Vehicle>>> PostVehicle(Vehicle vehicle)
         {
@@ -88,12 +91,14 @@ namespace Web_153501_Kiselev.API.Controllers
         }
 
         // DELETE: api/Vehicles/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task DeleteVehicle(Guid id)
         {
             await _vehicleService.DeleteVehicle(id);
         }
 
+        [Authorize]
         [HttpPost("{id}")]
         public async Task<ActionResult<BaseResponse<string>>> PostImage(Guid id, IFormFile formFile)
         {

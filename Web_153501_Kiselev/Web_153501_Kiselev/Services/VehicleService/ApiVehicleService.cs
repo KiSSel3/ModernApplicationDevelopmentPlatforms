@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using Microsoft.AspNetCore.Authentication;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using Web_153501_Kiselev.Domain.Entities;
 using Web_153501_Kiselev.Domain.Models;
@@ -8,17 +10,20 @@ namespace Web_153501_Kiselev.Services.VehicleService
     public class ApiVehicleService : IVehicleService
     {
         private readonly HttpClient _httpClient;
+        private readonly HttpContext _httpContext;
         private readonly JsonSerializerOptions _serializerOptions;
+
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
 
         private readonly string _itemsPerPage;
 
-        public ApiVehicleService(HttpClient httpClient, ILogger<ApiVehicleService> logger, IConfiguration configuration)
+        public ApiVehicleService(HttpClient httpClient, ILogger<ApiVehicleService> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
             _logger = logger;
             _configuration = configuration;
+            _httpContext = httpContextAccessor.HttpContext;
 
             _serializerOptions = new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
@@ -27,8 +32,11 @@ namespace Web_153501_Kiselev.Services.VehicleService
 
         public async Task<BaseResponse<Vehicle>> CreateVehicleAsync(Vehicle vehicle, IFormFile? formFile)
         {
-            var uri = new Uri(_httpClient.BaseAddress.AbsoluteUri + "Vehicles");
+            var token = await _httpContext.GetTokenAsync("access_token");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
 
+            var uri = new Uri(_httpClient.BaseAddress.AbsoluteUri + "Vehicles");
+            
             var response = await _httpClient.PostAsJsonAsync(uri, vehicle, _serializerOptions);
 
             if (response.IsSuccessStatusCode)
@@ -59,6 +67,9 @@ namespace Web_153501_Kiselev.Services.VehicleService
 
         public async Task DeleteVehicle(Guid id)
         {
+            var token = await _httpContext.GetTokenAsync("access_token");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+
             var uri = new Uri($"{_httpClient.BaseAddress.AbsoluteUri}Vehicles/{id}");
 
             await _httpClient.DeleteAsync(uri);
@@ -131,6 +142,9 @@ namespace Web_153501_Kiselev.Services.VehicleService
 
         public async Task UpdateProductAsync(Guid id, Vehicle vehicle, IFormFile? formFile)
         {
+            var token = await _httpContext.GetTokenAsync("access_token");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+
             if (formFile != null)
             {
                 await SaveImageAsync(vehicle.Id, formFile);
@@ -143,6 +157,9 @@ namespace Web_153501_Kiselev.Services.VehicleService
 
         private async Task SaveImageAsync(Guid id, IFormFile image)
         {
+            var token = await _httpContext.GetTokenAsync("access_token");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
