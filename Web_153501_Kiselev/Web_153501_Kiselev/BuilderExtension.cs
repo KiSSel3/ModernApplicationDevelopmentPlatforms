@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Web_153501_Kiselev.Entity;
+using Web_153501_Kiselev.Services.CartService;
 using Web_153501_Kiselev.Services.VehicleService;
 using Web_153501_Kiselev.Services.VehicleTypeService;
 
@@ -15,6 +16,9 @@ namespace Web_153501_Kiselev
             builder.Services.AddControllersWithViews();
             builder.Services.AddLogging();
             builder.Services.AddHttpContextAccessor();
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession();
+            builder.Services.AddScoped(sp => SessionCart.GetCart(sp));
 
             /*            builder.Services.AddScoped<IVehicleTypeService,MemoryVehicleTypeService>();
                         builder.Services.AddScoped<IVehicleService, MemoryVehicleService>();*/

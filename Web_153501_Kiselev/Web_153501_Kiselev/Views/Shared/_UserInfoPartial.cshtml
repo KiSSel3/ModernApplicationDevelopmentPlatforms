@@ -1,9 +1,7 @@
-﻿<a class="navbar-text ms-auto" asp-controller="Cart" asp-action="Index">
-    @await Component.InvokeAsync("Cart")
-</a>
-
-@if (User.Identity.IsAuthenticated)
+﻿@if (User.Identity.IsAuthenticated)
 {
+    @await Component.InvokeAsync("Cart")
+
     <div class="dropdown ms-4 nav-color">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
             @User.Claims.FirstOrDefault(c=> c.Type.Equals("Name",StringComparison.OrdinalIgnoreCase))?.Value

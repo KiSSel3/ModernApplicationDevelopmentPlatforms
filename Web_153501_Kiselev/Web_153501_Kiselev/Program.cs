@@ -30,6 +30,8 @@ internal class Program
 
         app.MapRazorPages().RequireAuthorization();
 
+        app.UseSession();
+
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");

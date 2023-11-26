@@ -1,0 +1,44 @@
+﻿@model Web_153501_Kiselev.Domain.Models.Cart;
+@{
+	var request = ViewContext.HttpContext.Request;
+	var ReturnUrl = request.Path + request.QueryString.ToUriComponent();
+}
+
+<h2>Корзина</h2>
+
+@if (Model.CartItems.Count > 0)
+{
+	<table>
+		<thead>
+			<tr>
+				<th>Товар</th>
+				<th>Количество</th>
+				<th>Цена</th>
+				<th>Изображение</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var cartItem in Model.CartItems)
+			{
+				<tr>
+					<td>@cartItem.Value.Vehicle.Model</td>
+					<td>@cartItem.Value.Count</td>
+					<td>@(cartItem.Value.Vehicle.Price * cartItem.Value.Count) $</td>
+					<td><img src="@cartItem.Value.Vehicle.ImagePath" alt="Image" height="100" width="100" /></td>
+					<td>
+						<form asp-action="Remove" asp-controller="Cart" asp-route-id=@cartItem.Value.Vehicle.Id asp-route-returnUrl=@ReturnUrl method="post">
+							<button type="submit" class="btn btn-danger">Удалить</button>
+						</form>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<br />
+	<p>Всего товаров: @Model.Count</p>
+	<p>Итоговая цена: @Model.TotalPrice $</p>
+}
+else
+{
+	<p>Корзина пуста.</p>
+}

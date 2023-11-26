@@ -8,7 +8,7 @@
                     <div class="card-body">
                         <h5 class="card-title">@item.Model</h5>
                         <p class="card-text">@item.Description</p>
-                        <a class="btn btn-primary mx-auto" asp-controller="Cart" asp-action="Add" asp-route-vehicleId="@item.Id" asp-route-returnUrl="@Model.ReturnUrl">Добавить в корзину</a>
+                        <a class="btn btn-primary mx-auto" asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id" asp-route-returnUrl="@Model.ReturnUrl">Добавить в корзину</a>
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">@item.Price $</small>
@@ -22,5 +22,5 @@
 
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/js/vehicle_list_partial.js"></script>

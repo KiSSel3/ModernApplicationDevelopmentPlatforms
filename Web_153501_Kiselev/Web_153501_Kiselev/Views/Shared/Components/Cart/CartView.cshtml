@@ -1,1 +1,5 @@
-﻿00,0 руб <i class="fa-solid fa-cart-shopping"></i> (0)
+﻿@model Web_153501_Kiselev.Domain.Models.Cart;
+
+<a class="navbar-text ms-auto" asp-controller="Cart" asp-action="Index">
+	@Model.TotalPrice $ <i class="fa-solid fa-cart-shopping"></i> (@Model.Count)
+</a>

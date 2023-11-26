@@ -14,6 +14,7 @@ namespace Web_153501_Kiselev.Controllers
 
         public VehicleController(IVehicleTypeService vehicleTypeService, IVehicleService vehicleService) => (_vehicleTypeService, _vehicleService) = (vehicleTypeService, vehicleService);
 
+        [Route("Vehicle/{type?}")]
         public async Task<IActionResult> Index(string? type, int pageNo = 1)
         {
             BaseResponse<ListModel<Vehicle>> responseVehicle = await _vehicleService.GetVehicleListAsync(type, pageNo);
