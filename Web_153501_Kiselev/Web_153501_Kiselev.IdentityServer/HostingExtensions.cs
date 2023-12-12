@@ -55,7 +55,17 @@ namespace Web_153501_Kiselev.IdentityServer
                     options.ClientSecret = "copy client secret from Google here";
                 });
 
-            builder.Services.AddControllers();
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("BlazorWasmPolicy", builder =>
+				{
+					builder.WithOrigins("https://localhost:7288")
+						   .AllowAnyMethod()
+						   .AllowAnyHeader();
+				});
+			});
+
+			builder.Services.AddControllers();
 
             return builder.Build();
         }
@@ -71,7 +81,8 @@ namespace Web_153501_Kiselev.IdentityServer
 
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseIdentityServer();
+			app.UseCors("BlazorWasmPolicy");
+			app.UseIdentityServer();
             app.UseAuthorization();
 
             app.MapControllers();

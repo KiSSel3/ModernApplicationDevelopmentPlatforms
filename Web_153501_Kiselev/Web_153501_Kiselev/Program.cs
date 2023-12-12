@@ -1,5 +1,6 @@
 using Web_153501_Kiselev;
-
+using Serilog;
+using Web_153501_Kiselev.Middleware;
 internal class Program
 {
     private static void Main(string[] args)
@@ -11,7 +12,12 @@ internal class Program
         builder.AddAuthentication();
 
         builder.Services.AddRazorPages();
-        var app = builder.Build();
+
+		var logger = new LoggerConfiguration()
+	                        .ReadFrom.Configuration(builder.Configuration)
+	                        .CreateLogger();
+
+		var app = builder.Build();
 
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
@@ -30,7 +36,9 @@ internal class Program
 
         app.MapRazorPages().RequireAuthorization();
 
-        app.UseSession();
+		app.UseMiddleware<LoggingMiddleware>(logger);
+
+		app.UseSession();
 
         app.MapControllerRoute(
             name: "default",

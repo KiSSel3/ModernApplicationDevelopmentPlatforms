@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev.Domain",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev.API", "Web_153501_Kiselev.API\Web_153501_Kiselev.API.csproj", "{6C94D352-790B-439F-9F24-11A0BAD79C04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_153501_Kiselev.IdentityServer", "Web_153501_Kiselev.IdentityServer\Web_153501_Kiselev.IdentityServer.csproj", "{EE525508-72EC-4399-8C3F-83DADB2DD296}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev.IdentityServer", "Web_153501_Kiselev.IdentityServer\Web_153501_Kiselev.IdentityServer.csproj", "{EE525508-72EC-4399-8C3F-83DADB2DD296}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev.Tests", "Web_153501_Kiselev.Tests\Web_153501_Kiselev.Tests.csproj", "{29CE3514-C649-4B2B-AF0C-2ACBC6BC6A27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_153501_Kiselev.BlazorWasm", "Web_153501_Kiselev.BlazorWasm\Web_153501_Kiselev.BlazorWasm.csproj", "{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{EE525508-72EC-4399-8C3F-83DADB2DD296}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE525508-72EC-4399-8C3F-83DADB2DD296}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE525508-72EC-4399-8C3F-83DADB2DD296}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29CE3514-C649-4B2B-AF0C-2ACBC6BC6A27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29CE3514-C649-4B2B-AF0C-2ACBC6BC6A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29CE3514-C649-4B2B-AF0C-2ACBC6BC6A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29CE3514-C649-4B2B-AF0C-2ACBC6BC6A27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
