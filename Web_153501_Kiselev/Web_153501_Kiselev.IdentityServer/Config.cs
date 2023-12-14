@@ -53,8 +53,8 @@ namespace Web_153501_Kiselev.IdentityServer
 				ClientId = "blazorApp",
 				AllowedGrantTypes = GrantTypes.Code,
 				RequireClientSecret = false,
-				RedirectUris = { "https://localhost:7288/authentication/login-callback" },
-				PostLogoutRedirectUris = { "https://localhost:7288/authentication/logout-callback" },
+				RedirectUris = { "https://localhost:7222/authentication/login-callback" },
+				PostLogoutRedirectUris = { "https://localhost:7222/authentication/logout-callback" },
 				AllowOfflineAccess = true,
 				AllowedScopes = { "openid", "profile", "api.read","api.write" }
 			},

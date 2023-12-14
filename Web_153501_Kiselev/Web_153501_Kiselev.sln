@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev.Identity
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev.Tests", "Web_153501_Kiselev.Tests\Web_153501_Kiselev.Tests.csproj", "{29CE3514-C649-4B2B-AF0C-2ACBC6BC6A27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_153501_Kiselev.BlazorWasm", "Web_153501_Kiselev.BlazorWasm\Web_153501_Kiselev.BlazorWasm.csproj", "{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_153501_Kiselev.BlazorWasm", "Web_153501_Kiselev.BlazorWasm\Web_153501_Kiselev.BlazorWasm.csproj", "{578A341E-CB17-47D8-92D8-576715726439}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{29CE3514-C649-4B2B-AF0C-2ACBC6BC6A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29CE3514-C649-4B2B-AF0C-2ACBC6BC6A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29CE3514-C649-4B2B-AF0C-2ACBC6BC6A27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578A341E-CB17-47D8-92D8-576715726439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578A341E-CB17-47D8-92D8-576715726439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578A341E-CB17-47D8-92D8-576715726439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578A341E-CB17-47D8-92D8-576715726439}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
