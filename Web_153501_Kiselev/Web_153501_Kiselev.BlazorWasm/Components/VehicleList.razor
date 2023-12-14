@@ -14,8 +14,7 @@ else
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Description</th>
-				<th>Price</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,8 +22,7 @@ else
 			{
 				<tr>
 					<td>@item.Model</td>
-					<td>@item.Description</td>
-					<td>@item.Price</td>
+					<td> <button class="btn btn-primary" @onclick="() => VehicleSelected.Invoke(item.Id)">Подробнее</button></td>
 				</tr>
 			}
 		</tbody>
@@ -40,4 +38,7 @@ else
 	{
 		DataService.DataChanged -= StateHasChanged;
 	}
+
+	[Parameter]
+	public Action<Guid> VehicleSelected { get; set; }
 }

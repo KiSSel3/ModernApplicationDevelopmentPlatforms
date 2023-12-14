@@ -3,10 +3,13 @@
 @attribute [Authorize]
 @using Web_153501_Kiselev.BlazorWasm.Components;
 @using Microsoft.AspNetCore.Authorization;
+@using Web_153501_Kiselev.Domain.Entities;
 
 <PageTitle>Vehicles</PageTitle>
 <TypeSelector SelectedType="@SelectedName" />
-<VehicleList />
+<VehicleList VehicleSelected="@FindVehicle"/>
+<Pager Type="@Type" TotalPages="@DataService.TotalPages" CurrentPage="@DataService.CurrentPage" />
+<VehicleDetails SelectedVehicle="@SelectedVehicle" />
 
 @code {
 	[Inject]
@@ -14,11 +17,23 @@
 	[Parameter] public string Type { get; set; }
 	public string? SelectedName { get; set; }
 
+	public Vehicle? SelectedVehicle { get; set; }
+
 	protected override async Task OnParametersSetAsync()
 	{
 		await DataService.GetVehicleListAsync(Type);
 		if (Type != null)
 			SelectedName = DataService?.Types?.FirstOrDefault(c => c.NormalizedName.Equals(Type))?.Name;
 		else SelectedName = "Все";
+	}
+
+	[Inject]
+	ILogger<Catalog> Logger { get; set; }
+
+	public void FindVehicle(Guid id)
+	{
+		SelectedVehicle = DataService?.VehicleList?.FirstOrDefault(v => v.Id == id);
+		Logger.LogInformation($"<------ FindCVehicle called ------> ({SelectedVehicle?.Model})");
+		StateHasChanged();
 	}
 }

@@ -32,8 +32,8 @@ internal class Program
         app.UseStaticFiles();
 
         app.UseHttpsRedirection();
-
-        app.UseAuthentication();
+		app.UseCors("BlazorWasmPolicy");
+		app.UseAuthentication();
 
         app.UseAuthorization();
 

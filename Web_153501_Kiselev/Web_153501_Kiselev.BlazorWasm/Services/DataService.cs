@@ -14,10 +14,11 @@ namespace Web_153501_Kiselev.BlazorWasm.Services
 		public event Action DataChanged;
 		private readonly HttpClient _httpClient;
 		private readonly IAccessTokenProvider _accessTokenProvider;
+		private readonly ILogger<DataService> _logger;
 		private readonly int _pageSize = 3;
 		private readonly JsonSerializerOptions _jsonSerializerOptions;
 
-		public DataService(HttpClient httpClient, IConfiguration configuration, IAccessTokenProvider accessTokenProvider)
+		public DataService(HttpClient httpClient, IConfiguration configuration, IAccessTokenProvider accessTokenProvider, ILogger<DataService> logger)
 		{
 			_httpClient = httpClient;
 			_pageSize = configuration.GetSection("PageSize").Get<int>();
@@ -26,6 +27,7 @@ namespace Web_153501_Kiselev.BlazorWasm.Services
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 			};
 			_accessTokenProvider = accessTokenProvider;
+			_logger = logger;
 		}
 
 		public List<VehicleType>? Types { get; set; }
@@ -128,7 +130,7 @@ namespace Web_153501_Kiselev.BlazorWasm.Services
 						TotalPages = responseData?.Data?.TotalPages ?? 0;
 						CurrentPage = responseData?.Data?.CurrentPage ?? 0;
 						DataChanged?.Invoke();
-
+						_logger.LogInformation("<------ Vehicle list received successfully ------>");
 						Success = true;
 					}
 					catch (JsonException ex)

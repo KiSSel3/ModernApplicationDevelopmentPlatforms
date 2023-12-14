@@ -29,6 +29,7 @@ namespace Web_153501_Kiselev.API.Controllers
 
 		// GET: api/Vehicles
 		[HttpGet("")]
+        [Authorize]
         [Route("{type:alpha}")]
         [Route("page{pageNo}")]
         [Route("{type}/page{pageNo}")]
@@ -46,7 +47,8 @@ namespace Web_153501_Kiselev.API.Controllers
 
 		// GET: api/Vehicles/5
 		[HttpGet("{id}")]
-        public async Task<ActionResult<BaseResponse<Vehicle>>> GetVehicle(Guid id)
+		[Authorize]
+		public async Task<ActionResult<BaseResponse<Vehicle>>> GetVehicle(Guid id)
         {
             var response = await _vehicleService.GetVehicleByIdAsync(id);
 

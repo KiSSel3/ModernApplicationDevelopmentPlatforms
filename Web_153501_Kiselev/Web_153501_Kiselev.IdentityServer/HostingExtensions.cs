@@ -59,9 +59,10 @@ namespace Web_153501_Kiselev.IdentityServer
 			{
 				options.AddPolicy("BlazorWasmPolicy", builder =>
 				{
-					builder.WithOrigins("https://localhost:7288")
-						   .AllowAnyMethod()
-						   .AllowAnyHeader();
+                    builder.WithOrigins("https://localhost:7288")
+                           .AllowAnyMethod()
+                           .AllowAnyHeader()
+                           .AllowCredentials();
 				});
 			});
 			return builder.Build();

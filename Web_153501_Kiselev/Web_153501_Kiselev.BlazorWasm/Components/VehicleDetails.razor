@@ -1,0 +1,40 @@
+﻿@using Web_153501_Kiselev.Domain.Entities
+
+<style>
+	.vehicle-details-container {
+		display: flex;
+		align-items: center;
+	}
+
+	.vehicle-image {
+		flex: 0 0 auto;
+		margin-right: 20px;
+	}
+
+	.vehicle-info {
+		flex: 1 1 auto;
+	}
+</style>
+
+
+@if (SelectedVehicle is not null)
+{
+	<div class="vehicle-details-container">
+		<div class="vehicle-image">
+			@if (!string.IsNullOrEmpty(SelectedVehicle.ImagePath))
+			{
+				<img src="@SelectedVehicle.ImagePath" alt="Vehicle Image" width="400" height="300" />
+			}
+		</div>
+		<div class="vehicles-info">
+			<h2>@SelectedVehicle.Model</h2>
+			<p>@SelectedVehicle.Description</p>
+			<p>@SelectedVehicle.Price $</p>
+		</div>
+	</div>
+}
+
+@code {
+	[Parameter]
+	public Vehicle? SelectedVehicle { get; set; }
+}
