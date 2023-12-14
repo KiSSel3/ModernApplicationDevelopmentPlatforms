@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev.Identity
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev.Tests", "Web_153501_Kiselev.Tests\Web_153501_Kiselev.Tests.csproj", "{29CE3514-C649-4B2B-AF0C-2ACBC6BC6A27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web_153501_Kiselev.BlazorWasm", "Web_153501_Kiselev.BlazorWasm\Web_153501_Kiselev.BlazorWasm.csproj", "{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web_153501_Kiselev.BlazorWasm", "Web_153501_Kiselev.BlazorWasm\Web_153501_Kiselev.BlazorWasm.csproj", "{D5BCF59F-A3A9-42DF-B59E-2294CD2F6730}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

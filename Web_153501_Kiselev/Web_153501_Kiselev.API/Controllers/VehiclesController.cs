@@ -27,8 +27,8 @@ namespace Web_153501_Kiselev.API.Controllers
             _appUri = _configuration.GetSection("appUri").Value;
         }
 
-        // GET: api/Vehicles
-        [HttpGet("")]
+		// GET: api/Vehicles
+		[HttpGet("")]
         [Route("{type:alpha}")]
         [Route("page{pageNo}")]
         [Route("{type}/page{pageNo}")]
@@ -44,8 +44,8 @@ namespace Web_153501_Kiselev.API.Controllers
             return NotFound();
         }
 
-        // GET: api/Vehicles/5
-        [HttpGet("{id}")]
+		// GET: api/Vehicles/5
+		[HttpGet("{id}")]
         public async Task<ActionResult<BaseResponse<Vehicle>>> GetVehicle(Guid id)
         {
             var response = await _vehicleService.GetVehicleByIdAsync(id);

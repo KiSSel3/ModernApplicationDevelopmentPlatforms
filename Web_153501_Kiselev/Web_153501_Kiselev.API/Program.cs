@@ -39,6 +39,8 @@ internal class Program
 
         app.MapControllers();
 
-        app.Run();
+		//app.UseCors("AllowSpecificOrigin");
+
+		app.Run();
     }
 }

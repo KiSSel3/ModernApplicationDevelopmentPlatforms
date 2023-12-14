@@ -64,11 +64,8 @@ namespace Web_153501_Kiselev.IdentityServer
 						   .AllowAnyHeader();
 				});
 			});
-
-			builder.Services.AddControllers();
-
-            return builder.Build();
-        }
+			return builder.Build();
+		}
 
         public static WebApplication ConfigurePipeline(this WebApplication app)
         {

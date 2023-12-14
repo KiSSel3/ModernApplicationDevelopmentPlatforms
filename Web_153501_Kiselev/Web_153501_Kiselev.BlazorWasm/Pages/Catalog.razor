@@ -1,0 +1,24 @@
+﻿@page "/catalog"
+@page "/catalog/{type}"
+@attribute [Authorize]
+@using Web_153501_Kiselev.BlazorWasm.Components;
+@using Microsoft.AspNetCore.Authorization;
+
+<PageTitle>Vehicles</PageTitle>
+<TypeSelector SelectedType="@SelectedName" />
+<VehicleList />
+
+@code {
+	[Inject]
+	public IDataService DataService { get; set; }
+	[Parameter] public string Type { get; set; }
+	public string? SelectedName { get; set; }
+
+	protected override async Task OnParametersSetAsync()
+	{
+		await DataService.GetVehicleListAsync(Type);
+		if (Type != null)
+			SelectedName = DataService?.Types?.FirstOrDefault(c => c.NormalizedName.Equals(Type))?.Name;
+		else SelectedName = "Все";
+	}
+}

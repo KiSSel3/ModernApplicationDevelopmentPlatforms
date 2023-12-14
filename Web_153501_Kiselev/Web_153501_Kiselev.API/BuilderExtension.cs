@@ -23,7 +23,15 @@ namespace Web_153501_Kiselev.API
                             new[] { "at+jwt" };
                         });
 
-            builder.Services.AddScoped<IVehicleTypeService, VehicleTypeService>();
+/*			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("AllowSpecificOrigin",
+					builder => builder.WithOrigins("https://localhost:7288")
+					.AllowAnyHeader()
+					.AllowAnyMethod());
+			});*/
+
+			builder.Services.AddScoped<IVehicleTypeService, VehicleTypeService>();
             builder.Services.AddScoped<IVehicleService, VehicleService>();
         }
 

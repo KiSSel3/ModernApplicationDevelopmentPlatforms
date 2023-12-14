@@ -1,0 +1,34 @@
+﻿<select class="form-select" @onchange="TypeHasChanged">
+	<option value="">Все</option>
+	@if (DataService?.Types is not null)
+	{
+		@foreach (var category in DataService.Types!)
+		{
+			<option value="@category.NormalizedName">@category.Name</option>
+		}
+	}
+</select>
+
+@code {
+	[Inject]
+	public IDataService DataService { get; set; }
+
+	[Inject]
+	public NavigationManager NavigationManager { get; set; }
+
+	[Parameter]
+	public string? SelectedType { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		await DataService.GetTypeListAsync();
+	}
+
+	private void TypeHasChanged(ChangeEventArgs e)
+	{
+		SelectedType = e.Value?.ToString();
+		NavigationManager.NavigateTo($"catalog/{SelectedType}");
+	}
+}
+
+<script src="~/bootstrap/js/bootstrap.bundle.min.js"></script>
